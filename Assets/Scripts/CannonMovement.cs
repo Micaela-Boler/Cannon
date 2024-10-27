@@ -17,12 +17,6 @@ public class CannonMovement : MonoBehaviour
     }
 
 
-    public void CannonRotation()
-    {
-        Quaternion rotation = Quaternion.Euler(x.value, transform.rotation.y, z.value);
-        transform.rotation = rotation;
-    }
-
     public void SetSliderValue(float maxValue, float minValue, Slider slider)
     {
         slider.value = 0;
@@ -31,5 +25,11 @@ public class CannonMovement : MonoBehaviour
  
         slider.maxValue = maxValue;
         slider.minValue = minValue;
+    }
+
+    public void CannonRotation()
+    {
+        Quaternion rotation = Quaternion.Euler(x.value, transform.rotation.y, z.value);
+        transform.rotation = rotation;
     }
 }
