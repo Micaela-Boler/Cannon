@@ -8,11 +8,9 @@ public class Bullet : MonoBehaviour
     Information information;
 
     [Header("INFORMACION")]
-    public float time;
-    public float distance;
-    private float currentTime;
-    public int collisionedObstaclesCounter;
-    public int destroyedObstaclesCounter;
+    private float distance;
+    private int collisionedObstaclesCounter;
+
 
 
     void Start()
@@ -25,9 +23,9 @@ public class Bullet : MonoBehaviour
     
     void Update()
     {
-        currentTime += Time.deltaTime;
-        StartCoroutine(DestroyBullet(20));
+        StartCoroutine(DestroyBullet(15));
     }
+
 
 
     private void OnCollisionEnter(Collision collision)
@@ -35,20 +33,22 @@ public class Bullet : MonoBehaviour
         if (collision.gameObject.CompareTag("Obstacle"))
         {
             collisionedObstaclesCounter++;
-            time = currentTime;
         }
-        else if (collision.gameObject.CompareTag("Limite"))
-            StartCoroutine(DestroyBullet(0));
     }
 
-
-    IEnumerator DestroyBullet(float timeToDestroy) 
-    { 
-        yield return new WaitForSeconds(timeToDestroy);
-
+    void GetBulletInformation()
+    {
         distance = transform.position.z - initialPosition.z;
 
-        information.TakeBulletInformation();
+        information.distance.Add(distance);
+        information.time.Add(information.currentTime);
+        information.collisionedObstacles.Add(collisionedObstaclesCounter);
+    }
+
+    IEnumerator DestroyBullet(float timeToDestroy)
+    {
+        yield return new WaitForSeconds(timeToDestroy);
+        GetBulletInformation();
         Destroy(gameObject);
     }
 }

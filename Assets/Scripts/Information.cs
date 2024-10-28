@@ -30,6 +30,8 @@ public class Information : MonoBehaviour
 
     public List<float> distance = new List<float>();
 
+    public float currentTime;
+
 
     [Header("COLLISION")]
     public List<int> collisionedObstacles = new List<int>();
@@ -39,6 +41,11 @@ public class Information : MonoBehaviour
     public int collisionedObjectTotal;
 
 
+
+    private void Update()
+    {
+        currentTime = Time.deltaTime;
+    }
 
     public void TakeShotInformation()
     {
@@ -50,15 +57,6 @@ public class Information : MonoBehaviour
         verticalAngles.Add(cannonMovement.x.value);
     }
 
-
-    public void TakeBulletInformation()
-    {
-       bullet = FindAnyObjectByType<Bullet>();
-        
-       time.Add(bullet.time);
-       distance.Add(bullet.distance);
-       collisionedObstacles.Add(bullet.collisionedObstaclesCounter);
-    }
 
     public void TotalInformation()
     {
